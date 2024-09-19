@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cvksdgsgm5q6h"]
+
+[ext_resource type="Script" path="res://scenes/asteroid.gd" id="1_au51o"]
+[ext_resource type="Texture2D" uid="uid://cskx3mxaudqno" path="res://media/asteroids/asteroid1.png" id="1_e5kx5"]
+[ext_resource type="AudioStream" uid="uid://ckvpaju5w8vjf" path="res://media/sounds/explosion.wav" id="3_nxpl4"]
+
+[node name="asteroid" type="Area2D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_au51o")
+
+[node name="asteroidImage" type="Sprite2D" parent="."]
+texture = ExtResource("1_e5kx5")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(1, 16, -5, 15, -10, 12, -9, 5, -16, -3, -13, -12, -3, -16, 3, -11, 8, -11, 12, -9, 14, -2, 15, 2, 5, 10)
+
+[node name="explosionSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_nxpl4")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

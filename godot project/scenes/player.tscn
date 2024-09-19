@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://336lkccwun24"]
+
+[ext_resource type="Script" path="res://scenes/player.gd" id="1_2bale"]
+[ext_resource type="Texture2D" uid="uid://bvt1ugl7ypo35" path="res://media/rocket.png" id="1_eewln"]
+[ext_resource type="AudioStream" uid="uid://bswp3rfne1jov" path="res://media/sounds/laser.wav" id="3_dw207"]
+[ext_resource type="AudioStream" uid="uid://by5s8qwnoc4v3" path="res://media/sounds/damage.wav" id="4_3ebht"]
+
+[sub_resource type="Gradient" id="Gradient_ef0q5"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ehp35"]
+gradient = SubResource("Gradient_ef0q5")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xk07h"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, 14.96, 0)
+emission_shape = 1
+emission_sphere_radius = 2.74
+angle_min = -181.1
+angle_max = 181.2
+gravity = Vector3(0, 2.125, 0)
+scale_max = 3.0
+color_ramp = SubResource("GradientTexture1D_ehp35")
+
+[node name="Player" type="CharacterBody2D"]
+collision_mask = 2
+script = ExtResource("1_2bale")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+process_material = SubResource("ParticleProcessMaterial_xk07h")
+lifetime = 0.5
+
+[node name="playerImage" type="Sprite2D" parent="."]
+texture = ExtResource("1_eewln")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(1, -16, -1, -16, -3, -10, -6, -3, -6, 5, -10, 10, -10, 14, -8, 16, 0, 13, 8, 16, 10, 14, 10, 10, 6, 5, 6, -3, 3, -10)
+
+[node name="laserStartPos" type="Marker2D" parent="."]
+position = Vector2(0, -29)
+
+[node name="laserTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="laserSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_dw207")
+
+[node name="damageSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_3ebht")
+
+[connection signal="timeout" from="laserTimer" to="." method="_on_laser_timer_timeout"]

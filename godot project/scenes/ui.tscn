@@ -1,0 +1,100 @@
+[gd_scene load_steps=9 format=3 uid="uid://lsx7cde7oy3g"]
+
+[ext_resource type="Script" path="res://scenes/ui.gd" id="1_78ax1"]
+[ext_resource type="FontFile" uid="uid://dcdqlgbc8fpj8" path="res://media/fonts/Teko-Bold.ttf" id="1_okccp"]
+[ext_resource type="Texture2D" uid="uid://lrxttsre5hpv" path="res://media/buttons/buttonarrow.png" id="3_5rkfw"]
+[ext_resource type="Texture2D" uid="uid://bq6psr722gmno" path="res://media/buttons/buttonarrowpressed.png" id="4_bomyn"]
+[ext_resource type="Texture2D" uid="uid://bpxg7u1f7l2xp" path="res://media/buttons/buttonboost.png" id="5_xoa8x"]
+[ext_resource type="Texture2D" uid="uid://6gppqh1o3ukr" path="res://media/buttons/buttonboostpressed.png" id="6_etnlu"]
+[ext_resource type="Texture2D" uid="uid://cnvj7q8m4ut18" path="res://media/buttons/buttonlaser.png" id="7_bj7te"]
+[ext_resource type="Texture2D" uid="uid://41sdxoubnwek" path="res://media/buttons/buttonlaserpressed.png" id="8_hiurv"]
+
+[node name="ui" type="CanvasLayer" groups=["ui"]]
+script = ExtResource("1_78ax1")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -44.5
+offset_right = 44.5
+offset_bottom = 72.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 20
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_okccp")
+theme_override_font_sizes/font_size = 50
+text = "0"
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -40.0
+offset_right = 60.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer2"]
+layout_mode = 2
+theme_override_constants/separation = -8
+
+[node name="scoreTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="MarginContainer3" type="MarginContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ButtonRight" type="TouchScreenButton" parent="MarginContainer3"]
+position = Vector2(380, -140)
+scale = Vector2(4, 4)
+texture_normal = ExtResource("3_5rkfw")
+texture_pressed = ExtResource("4_bomyn")
+passby_press = true
+
+[node name="ButtonLeft" type="TouchScreenButton" parent="MarginContainer3"]
+position = Vector2(360, -12)
+rotation = 3.14159
+scale = Vector2(4, 4)
+texture_normal = ExtResource("3_5rkfw")
+texture_pressed = ExtResource("4_bomyn")
+passby_press = true
+
+[node name="ButtonBoost" type="TouchScreenButton" parent="MarginContainer3"]
+position = Vector2(-470, -140)
+scale = Vector2(4, 4)
+texture_normal = ExtResource("5_xoa8x")
+texture_pressed = ExtResource("6_etnlu")
+passby_press = true
+
+[node name="ButtonLaser" type="TouchScreenButton" parent="MarginContainer3"]
+position = Vector2(-322, -140)
+scale = Vector2(4, 4)
+texture_normal = ExtResource("7_bj7te")
+texture_pressed = ExtResource("8_hiurv")
+passby_press = true
+
+[connection signal="timeout" from="scoreTimer" to="." method="_on_score_timer_timeout"]
+[connection signal="pressed" from="MarginContainer3/ButtonRight" to="." method="_on_button_right_pressed"]
+[connection signal="released" from="MarginContainer3/ButtonRight" to="." method="_on_button_right_released"]
+[connection signal="pressed" from="MarginContainer3/ButtonLeft" to="." method="_on_button_left_pressed"]
+[connection signal="released" from="MarginContainer3/ButtonLeft" to="." method="_on_button_left_released"]
+[connection signal="pressed" from="MarginContainer3/ButtonBoost" to="." method="_on_button_boost_pressed"]
+[connection signal="released" from="MarginContainer3/ButtonBoost" to="." method="_on_button_boost_released"]
+[connection signal="pressed" from="MarginContainer3/ButtonLaser" to="." method="_on_button_laser_pressed"]
+[connection signal="released" from="MarginContainer3/ButtonLaser" to="." method="_on_button_laser_released"]

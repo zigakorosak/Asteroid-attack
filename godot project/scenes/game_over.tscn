@@ -1,0 +1,90 @@
+[gd_scene load_steps=8 format=3 uid="uid://d28oay3pv7syg"]
+
+[ext_resource type="Texture2D" uid="uid://dp6gsi4k0gemi" path="res://media/bg.png" id="1_l7d3l"]
+[ext_resource type="Script" path="res://scenes/game_over.gd" id="1_nbhu3"]
+[ext_resource type="PackedScene" uid="uid://r0p6rhtoxt5i" path="res://scenes/level_test.tscn" id="2_1vdwm"]
+[ext_resource type="FontFile" uid="uid://b1obdvsmtott4" path="res://media/fonts/Teko-SemiBold.ttf" id="2_rtv43"]
+[ext_resource type="FontFile" uid="uid://dheo07xu83a20" path="res://media/fonts/Teko-Medium.ttf" id="3_sgdoh"]
+[ext_resource type="FontFile" uid="uid://b1twddchd2vfm" path="res://media/fonts/Teko-Regular.ttf" id="4_qmlys"]
+[ext_resource type="AudioStream" uid="uid://crj18c3wfykye" path="res://media/sounds/music_title.wav" id="7_n28w0"]
+
+[node name="game over" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nbhu3")
+level_scene = ExtResource("2_1vdwm")
+
+[node name="bg" type="Polygon2D" parent="."]
+texture_repeat = 2
+position = Vector2(642, 336)
+scale = Vector2(10, 10)
+texture = ExtResource("1_l7d3l")
+texture_scale = Vector2(10, 10)
+polygon = PackedVector2Array(-150, 150, -150, -150, 150, -150, 150, 150)
+uv = PackedVector2Array(0, 300, 0, 0, 300, 0, 300, 300)
+polygons = [PackedInt32Array(0, 1, 2, 3)]
+metadata/_edit_lock_ = true
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = -50
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_rtv43")
+theme_override_font_sizes/font_size = 111
+text = "Game Over"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_sgdoh")
+theme_override_font_sizes/font_size = 52
+text = "Score: "
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -99.0
+offset_top = -40.0
+offset_right = 99.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_qmlys")
+theme_override_font_sizes/font_size = 36
+text = "Press anywhere to start again"
+horizontal_alignment = 1
+
+[node name="music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_n28w0")
+volume_db = -4.602
+autoplay = true
+
+[node name="ButtonEnd" type="Button" parent="."]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 50.0
+text = "END"
+
+[connection signal="button_down" from="ButtonEnd" to="." method="_on_button_end_button_down"]
